@@ -115,7 +115,7 @@
     transition:transform 260ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 260ms cubic-bezier(0.34,1.56,0.64,1);}
   .card:hover{transform:translateY(-6px); box-shadow:0 4px 8px rgba(11,31,58,0.08), 0 24px 40px -14px rgba(11,31,58,0.24), 0 20px 40px -20px rgba(201,162,39,0.18);}
 
-  .img-frame{position:relative; overflow:hidden; border-radius:16px;}
+  .img-frame{position:relative; overflow:hidden; border-radius:16px; cursor:zoom-in;}
   .img-frame img{transition:transform 700ms cubic-bezier(0.16,1,0.3,1);}
   .img-frame:hover img{transform:scale(1.06);}
   .img-overlay{position:absolute; inset:0; background:linear-gradient(to top, rgba(11,31,58,0.75) 0%, rgba(11,31,58,0.15) 45%, transparent 70%);}
@@ -128,6 +128,29 @@
   /* gentle scroll-cue bounce */
   @keyframes soft-bounce{0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);}}
   .animate-soft-bounce{animation:soft-bounce 2.2s ease-in-out infinite;}
+
+  /* Lightbox (expandable image viewer) */
+  body.no-scroll{overflow:hidden;}
+  #lightbox{position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:1.5rem;
+    background:rgba(8,14,26,0.94); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    opacity:0; pointer-events:none; transition:opacity 280ms cubic-bezier(0.16,1,0.3,1);}
+  #lightbox.open{opacity:1; pointer-events:auto;}
+  #lightbox img{max-width:min(92vw,1100px); max-height:80vh; width:auto; height:auto; border-radius:12px;
+    box-shadow:0 8px 16px rgba(0,0,0,0.3), 0 32px 64px -16px rgba(0,0,0,0.65);
+    transform:scale(0.96); transition:transform 280ms cubic-bezier(0.16,1,0.3,1);}
+  #lightbox.open img{transform:scale(1);}
+  #lightbox .lb-btn{position:absolute; display:flex; align-items:center; justify-content:center;
+    color:#fff; background:rgba(255,255,255,0.08); border:1.5px solid rgba(255,255,255,0.18); border-radius:9999px;
+    transition:background-color 200ms ease, border-color 200ms ease, transform 200ms cubic-bezier(0.34,1.56,0.64,1);}
+  #lightbox .lb-btn:hover{background:rgba(255,255,255,0.18); border-color:rgba(255,255,255,0.45);}
+  #lightbox .lb-btn:focus-visible{outline:2px solid var(--gold-light); outline-offset:2px;}
+  #lightboxClose{top:1.25rem; right:1.25rem; height:2.75rem; width:2.75rem;}
+  #lightboxClose:hover{transform:scale(1.08) rotate(90deg);}
+  #lightboxPrev, #lightboxNext{top:50%; height:3rem; width:3rem; transform:translateY(-50%);}
+  #lightboxPrev:hover, #lightboxNext:hover{transform:translateY(-50%) scale(1.08);}
+  #lightboxPrev{left:1rem;}
+  #lightboxNext{right:1rem;}
+  #lightboxCaption{position:absolute; left:4.5rem; right:4.5rem; bottom:1.25rem; text-align:center; color:rgba(255,255,255,0.7); font-size:13.5px;}
 
   /* number badge */
   .num-badge{font-family:'Manrope',sans-serif; font-weight:800;}
@@ -222,7 +245,7 @@
           Leadership with Purpose.<br>
           <span style="color:var(--gold-dark,#9C7D1B);">Service with Impact.</span>
         </h1>
-        <p class="mt-4 eyebrow text-[12.5px] sm:text-[13px] font-semibold uppercase tracking-[0.14em]" style="color:var(--royal);">&ldquo;Imole De Si Ekiti Oke&rdquo; &middot; A New Dawn for Ekiti North 1</p>
+        <p class="mt-4 eyebrow text-[12.5px] sm:text-[13px] font-semibold uppercase tracking-[0.14em]" style="color:var(--royal);">&ldquo;Imole De Si Ekiti Oke&rdquo; &middot; A New Dawn for Ikole/Oye</p>
 
         <p class="mt-6 text-charcoal/75 text-lg max-w-xl" style="line-height:1.75;">
           Apostle Ayodele David-Adesua &middot; <span class="text-navy font-semibold">Imole Ekiti</span>. A servant leader bringing dividends of democracy home to the people of Ikole and Oye.
@@ -259,11 +282,11 @@
         <div class="absolute -top-8 -right-8 h-40 w-40 rounded-full blur-3xl" style="background:rgba(201,162,39,0.25);"></div>
         <div class="absolute -bottom-10 -left-10 h-48 w-48 rounded-full blur-3xl" style="background:rgba(21,87,166,0.2);"></div>
         <div class="relative img-frame shadow-floating">
-          <img src="brand_assests/imole-3.jpeg" alt="Apostle Ayodele David-Adesua, Imole Ekiti" class="w-full h-[400px] sm:h-[460px] object-contain bg-navy-2">
+          <img src="brand_assests/imole-3.jpeg" alt="Apostle Ayodele David-Adesua, Imole Ekiti" class="js-zoomable cursor-zoom-in w-full h-[400px] sm:h-[460px] object-contain bg-navy-2">
           <div class="img-overlay"></div>
           <div class="absolute left-6 right-6 bottom-6 rounded-xl bg-white/95 backdrop-blur px-5 py-4 shadow-elevated">
             <p class="font-display font-extrabold text-navy text-lg leading-tight">Apostle Ayodele David-Adesua</p>
-            <p class="text-[13px] text-charcoal/70 mt-0.5">Aspirant &middot; House of Representatives, Ekiti North 1</p>
+            <p class="text-[13px] text-charcoal/70 mt-0.5">Aspirant &middot; House of Representatives, Ikole/Oye</p>
           </div>
         </div>
       </div>
@@ -274,7 +297,7 @@
     <div class="relative order-2 lg:order-1 reveal">
       <div class="absolute -inset-5 rounded-[1.75rem]" style="background:linear-gradient(135deg, rgba(11,31,58,0.06), rgba(201,162,39,0.10));"></div>
       <div class="relative img-frame shadow-elevated">
-        <img src="brand_assests/imole-2.jpeg" alt="Apostle Ayodele David-Adesua honoring the Nigerian flag" class="w-full h-[420px] sm:h-[500px] object-contain bg-mist">
+        <img src="brand_assests/imole-2.jpeg" alt="Apostle Ayodele David-Adesua honoring the Nigerian flag" class="js-zoomable cursor-zoom-in w-full h-[420px] sm:h-[500px] object-contain bg-mist">
         <div class="img-tint"></div>
       </div>
       <div class="absolute -bottom-8 -right-6 sm:-right-10 card px-6 py-5 max-w-[240px]">
@@ -334,7 +357,7 @@
   <div class="relative mx-auto max-w-7xl px-5 sm:px-8">
     <div class="max-w-2xl mx-auto text-center reveal">
       <p class="eyebrow text-[12px] font-bold uppercase" style="color:#E4C765;">Our Vision</p>
-      <h2 class="mt-3 font-extrabold text-3xl sm:text-[2.5rem] text-white leading-tight">The 6-Point Agenda for Ekiti North 1</h2>
+      <h2 class="mt-3 font-extrabold text-3xl sm:text-[2.5rem] text-white leading-tight">The 6-Point Agenda for Ikole/Oye</h2>
       <div class="divider-gold mx-auto mt-6"></div>
       <p class="mt-6 text-white/70">Practical, people-centred plans built around the real problems of Ikole and Oye, not empty promises.</p>
     </div>
@@ -517,7 +540,7 @@
         </h3>
         <div class="mt-7 card overflow-hidden">
           <div class="img-frame">
-            <img src="brand_assests/cert-icon-award.jpeg" alt="ICON of Vision and Excellence Award, Institute of Corporate Administration" class="w-full h-56 object-contain bg-mist">
+            <img src="brand_assests/cert-icon-award.jpeg" alt="ICON of Vision and Excellence Award, Institute of Corporate Administration" class="js-zoomable cursor-zoom-in w-full h-56 object-contain bg-mist">
           </div>
           <div class="p-6">
             <p class="font-display font-bold text-navy">ICON of Vision &amp; Excellence Award</p>
@@ -528,7 +551,7 @@
 
         <div class="mt-6 card overflow-hidden">
           <div class="img-frame">
-            <img src="brand_assests/cert-bsc.jpeg" alt="Bachelor of Science degree certificate, Lagos State University" class="w-full h-56 object-contain bg-mist">
+            <img src="brand_assests/cert-bsc.jpeg" alt="Bachelor of Science degree certificate, Lagos State University" class="js-zoomable cursor-zoom-in w-full h-56 object-contain bg-mist">
           </div>
           <div class="p-6">
             <p class="font-display font-bold text-navy">BSc Degree Certificate</p>
@@ -538,7 +561,7 @@
 
         <div class="mt-6 card overflow-hidden">
           <div class="img-frame">
-            <img src="brand_assests/cert-conflict-training.jpeg" alt="Certificate of Attendance, Managing and Resolving Conflict Training" class="w-full h-56 object-contain bg-mist">
+            <img src="brand_assests/cert-conflict-training.jpeg" alt="Certificate of Attendance, Managing and Resolving Conflict Training" class="js-zoomable cursor-zoom-in w-full h-56 object-contain bg-mist">
           </div>
           <div class="p-6">
             <p class="font-display font-bold text-navy">Managing &amp; Resolving Conflict Training</p>
@@ -548,7 +571,7 @@
 
         <div class="mt-6 card overflow-hidden">
           <div class="img-frame">
-            <img src="brand_assests/update%201.jpeg" alt="Official INEC list of candidates, Ikole/Oye Federal Constituency, showing Ayodele David-Adesua under NDC" class="w-full h-56 object-contain bg-mist">
+            <img src="brand_assests/update%201.jpeg" alt="Official INEC list of candidates, Ikole/Oye Federal Constituency, showing Ayodele David-Adesua under NDC" class="js-zoomable cursor-zoom-in w-full h-56 object-contain bg-mist">
           </div>
           <div class="p-6">
             <p class="font-display font-bold text-navy">Official INEC Candidate List</p>
@@ -583,7 +606,7 @@
       </div>
       <div class="relative reveal" style="transition-delay:100ms;">
         <div class="img-frame shadow-elevated">
-          <img src="brand_assests/imole-4.jpeg" alt="Apostle Ayodele David-Adesua addressing supporters at a campaign rally" class="w-full h-[440px] object-contain bg-mist">
+          <img src="brand_assests/imole-4.jpeg" alt="Apostle Ayodele David-Adesua addressing supporters at a campaign rally" class="js-zoomable cursor-zoom-in w-full h-[440px] object-contain bg-mist">
           <div class="img-tint"></div>
         </div>
       </div>
@@ -662,7 +685,7 @@
       <div class="rounded-2xl border border-navy/10 bg-mist overflow-hidden shadow-elevated">
         <div class="grid lg:grid-cols-[320px_1fr]">
           <div class="relative img-frame lg:self-start">
-            <img src="brand_assests/appoint.jpeg" alt="Hon. Aduragbemi Ayoola, 'Afo', newly appointed Campaign Director General" class="w-full h-[380px] lg:h-[460px] object-contain bg-navy-2">
+            <img src="brand_assests/appoint.jpeg" alt="Hon. Aduragbemi Ayoola, 'Afo', newly appointed Campaign Director General" class="js-zoomable cursor-zoom-in w-full h-[380px] lg:h-[460px] object-contain bg-navy-2">
           </div>
 
           <div class="p-8 sm:p-10">
@@ -703,7 +726,7 @@
 
             <div class="mt-8 rounded-xl bg-white border border-navy/10 p-6">
               <span class="quote-mark text-4xl" style="color:var(--gold);">&ldquo;</span>
-              <p class="-mt-3 text-navy font-display font-semibold text-[15.5px]" style="line-height:1.7;">Hon. Ayoola's experience and dedication are exactly what we need to organize and win Ekiti North 1. I have full confidence in his leadership to deliver this mandate for our people.</p>
+              <p class="-mt-3 text-navy font-display font-semibold text-[15.5px]" style="line-height:1.7;">Hon. Ayoola's experience and dedication are exactly what we need to organize and win Ikole/Oye. I have full confidence in his leadership to deliver this mandate for our people.</p>
               <p class="mt-3 text-[13px] text-charcoal/60 font-medium">Apostle Ayodele David-Adesua</p>
             </div>
 
@@ -740,18 +763,17 @@
     </div>
 
     <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      <div class="reveal img-frame shadow-soft aspect-[4/5]"><img src="brand_assests/imole-2.jpeg" alt="Apostle Ayodele David-Adesua honoring the Nigerian flag" class="w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">Honoring the Nigerian Flag</p></div>
-      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:40ms;"><img src="brand_assests/imole-4.jpeg" alt="Apostle Ayodele David-Adesua on the campaign trail" class="w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">On the Campaign Trail</p></div>
-      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:80ms;"><img src="brand_assests/imole-1.jpeg" alt="Apostle Ayodele David-Adesua, a quiet moment" class="w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">A Quiet Moment of Preparation</p></div>
-      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:120ms;"><img src="brand_assests/poster-vote-green.jpeg" alt="Official campaign poster" class="w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">Official Campaign Poster</p></div>
-      <div class="reveal img-frame shadow-soft aspect-[4/5]"><img src="brand_assests/poster-cover-page.jpeg" alt="Imole De Si Ekiti Oke campaign cover" class="w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">&ldquo;Imole De Si Ekiti Oke&rdquo;</p></div>
-      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:40ms;"><img src="brand_assests/poster-ballot-blue.jpeg" alt="Your vote, your power, your future" class="w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">Your Vote, Your Power, Your Future</p></div>
-      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:80ms;"><img src="brand_assests/poster-backcover-cream.jpeg" alt="Apostle Ayodele David-Adesua for House of Representatives" class="w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">For House of Representatives</p></div>
-      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:120ms;"><img src="brand_assests/imole-3.jpeg" alt="Apostle Ayodele David-Adesua" class="w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">Apostle Ayodele David-Adesua</p></div>
-      <div class="reveal img-frame shadow-soft aspect-[4/5]"><img src="brand_assests/poster%201.jpeg" alt="Official NDC campaign poster: Vote Apostle Ayodele David-Adesua for House of Representatives" class="w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">Vote NDC &middot; Imole De Si Ekiti Ok&egrave;</p></div>
-      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:40ms;"><img src="brand_assests/poster%202.jpeg" alt="Official campaign poster: Apostle Ayodele David-Adesua, capable and reliable" class="w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">ADA &middot; Capable and Reliable</p></div>
-      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:80ms;"><img src="brand_assests/poster%203.jpeg" alt="Official NDC campaign poster: Imole De Si Ekiti Ok&egrave;" class="w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">Imole De Si Ekiti Ok&egrave;</p></div>
-      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:120ms;"><img src="brand_assests/hat.jpeg" alt="Official ADA campaign cap merchandise" class="w-full h-full object-contain bg-white"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">Official Campaign Merchandise</p></div>
+      <div class="reveal img-frame shadow-soft aspect-[4/5]"><img src="brand_assests/imole-2.jpeg" alt="Apostle Ayodele David-Adesua honoring the Nigerian flag" class="js-zoomable cursor-zoom-in w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">Honoring the Nigerian Flag</p></div>
+      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:40ms;"><img src="brand_assests/imole-4.jpeg" alt="Apostle Ayodele David-Adesua on the campaign trail" class="js-zoomable cursor-zoom-in w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">On the Campaign Trail</p></div>
+      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:80ms;"><img src="brand_assests/imole-1.jpeg" alt="Apostle Ayodele David-Adesua, a quiet moment" class="js-zoomable cursor-zoom-in w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">A Quiet Moment of Preparation</p></div>
+      <div class="reveal img-frame shadow-soft aspect-[4/5]"><img src="brand_assests/poster-cover-page.jpeg" alt="Imole De Si Ekiti Oke campaign cover" class="js-zoomable cursor-zoom-in w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">&ldquo;Imole De Si Ekiti Oke&rdquo;</p></div>
+      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:40ms;"><img src="brand_assests/poster-ballot-blue.jpeg" alt="Your vote, your power, your future" class="js-zoomable cursor-zoom-in w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">Your Vote, Your Power, Your Future</p></div>
+      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:80ms;"><img src="brand_assests/poster-backcover-cream.jpeg" alt="Apostle Ayodele David-Adesua for House of Representatives" class="js-zoomable cursor-zoom-in w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">For House of Representatives</p></div>
+      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:120ms;"><img src="brand_assests/imole-3.jpeg" alt="Apostle Ayodele David-Adesua" class="js-zoomable cursor-zoom-in w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">Apostle Ayodele David-Adesua</p></div>
+      <div class="reveal img-frame shadow-soft aspect-[4/5]"><img src="brand_assests/poster%201.jpeg" alt="Official NDC campaign poster: Vote Apostle Ayodele David-Adesua for House of Representatives" class="js-zoomable cursor-zoom-in w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">Vote NDC &middot; Imole De Si Ekiti Ok&egrave;</p></div>
+      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:40ms;"><img src="brand_assests/poster%202.jpeg" alt="Official campaign poster: Apostle Ayodele David-Adesua, capable and reliable" class="js-zoomable cursor-zoom-in w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">ADA &middot; Capable and Reliable</p></div>
+      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:80ms;"><img src="brand_assests/poster%203.jpeg" alt="Official NDC campaign poster: Imole De Si Ekiti Ok&egrave;" class="js-zoomable cursor-zoom-in w-full h-full object-contain bg-navy-2"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">Imole De Si Ekiti Ok&egrave;</p></div>
+      <div class="reveal img-frame shadow-soft aspect-[4/5]" style="transition-delay:120ms;"><img src="brand_assests/hat.jpeg" alt="Official ADA campaign cap merchandise" class="js-zoomable cursor-zoom-in w-full h-full object-contain bg-white"><div class="img-overlay"></div><p class="absolute bottom-4 left-4 right-4 text-white text-[13px] font-semibold">Official Campaign Merchandise</p></div>
     </div>
   </div>
 </section>
@@ -867,6 +889,21 @@
   </div>
 </footer>
 
+<!-- ============ LIGHTBOX ============ -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded image viewer">
+  <button id="lightboxClose" class="lb-btn" aria-label="Close image viewer">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+  </button>
+  <button id="lightboxPrev" class="lb-btn" aria-label="Previous image">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+  </button>
+  <img id="lightboxImg" src="" alt="">
+  <button id="lightboxNext" class="lb-btn" aria-label="Next image">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+  </button>
+  <p id="lightboxCaption"></p>
+</div>
+
 <script>
   // Header background on scroll
   const header = document.getElementById('siteHeader');
@@ -924,6 +961,60 @@
     });
   }, { threshold: 0.4 });
   sections.forEach(s => navIO.observe(s));
+
+  // Lightbox (expandable image viewer)
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxPrev = document.getElementById('lightboxPrev');
+  const lightboxNext = document.getElementById('lightboxNext');
+  let lbGallery = [];
+  let lbIndex = 0;
+
+  function lbShow() {
+    const img = lbGallery[lbIndex];
+    lightboxImg.src = img.currentSrc || img.src;
+    lightboxImg.alt = img.alt;
+    lightboxCaption.textContent = img.alt || '';
+    const multi = lbGallery.length > 1;
+    lightboxPrev.hidden = !multi;
+    lightboxNext.hidden = !multi;
+  }
+  function lbOpen(images, startIndex) {
+    lbGallery = images;
+    lbIndex = startIndex;
+    lbShow();
+    lightbox.classList.add('open');
+    document.body.classList.add('no-scroll');
+  }
+  function lbClose() {
+    lightbox.classList.remove('open');
+    document.body.classList.remove('no-scroll');
+  }
+  function lbNext() { lbIndex = (lbIndex + 1) % lbGallery.length; lbShow(); }
+  function lbPrev() { lbIndex = (lbIndex - 1 + lbGallery.length) % lbGallery.length; lbShow(); }
+
+  document.addEventListener('click', (e) => {
+    const frame = e.target.closest('.img-frame');
+    const trigger = frame ? frame.querySelector('img.js-zoomable') : e.target.closest('img.js-zoomable');
+    if (trigger) {
+      const scope = trigger.closest('section') || document;
+      const images = Array.from(scope.querySelectorAll('img.js-zoomable'));
+      lbOpen(images, images.indexOf(trigger));
+      return;
+    }
+    if (e.target === lightbox) lbClose();
+  });
+  lightboxClose.addEventListener('click', lbClose);
+  lightboxNext.addEventListener('click', lbNext);
+  lightboxPrev.addEventListener('click', lbPrev);
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') lbClose();
+    if (e.key === 'ArrowRight') lbNext();
+    if (e.key === 'ArrowLeft') lbPrev();
+  });
 </script>
 </body>
 </html>
