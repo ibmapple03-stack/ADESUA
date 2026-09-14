@@ -129,6 +129,13 @@
   @keyframes soft-bounce{0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);}}
   .animate-soft-bounce{animation:soft-bounce 2.2s ease-in-out infinite;}
 
+  /* Hero logo: fill edge-to-edge on wide/landscape screens (crops only its
+     own blue margin); stay fully visible (contain) on tall/portrait screens
+     where cropping would cut into the NDC wordmark itself. */
+  @media (min-aspect-ratio: 1/1){
+    .hero-logo{object-fit:cover !important;}
+  }
+
   /* Lightbox (expandable image viewer) */
   body.no-scroll{overflow:hidden;}
   #lightbox{position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:1.5rem;
@@ -221,7 +228,7 @@
 
 <!-- ============ HERO / LOGO ============ -->
 <section id="home" class="relative hero-bg overflow-hidden min-h-screen">
-  <img src="brand_assests/logo%202.jpeg" alt="Nigeria Democratic Congress (NDC) official party logo" class="js-zoomable cursor-zoom-in reveal absolute inset-0 w-full h-full object-contain">
+  <img src="brand_assests/logo%202.jpeg" alt="Nigeria Democratic Congress (NDC) official party logo" class="js-zoomable cursor-zoom-in reveal hero-logo absolute inset-0 w-full h-full object-contain">
   <div class="absolute inset-0 pointer-events-none" style="background:linear-gradient(to top, rgba(11,31,58,0.55) 0%, rgba(11,31,58,0.05) 22%, transparent 45%, rgba(11,31,58,0.25) 100%);"></div>
   <div class="grain"></div>
 
